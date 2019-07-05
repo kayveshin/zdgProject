@@ -1,25 +1,50 @@
 package com.zhang.zdg1.controller;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.alibaba.fastjson.JSON;
 import com.zhang.zdg1.dao.UserMapper;
+import com.zhang.zdg1.model.User;
+import com.zhang.zdg1.model.UserExample;
 
-@RestController("/user")
+@RestController
+@RequestMapping("/user")
 public class UserController {
-	
 	@Resource
 	UserMapper userMapper;
 	
-	@RequestMapping("/Login")
-	public String userLogin() {
-		return "hello world";
+	@RequestMapping(value="/login",method=RequestMethod.POST)
+	public String userLogin(@RequestParam("name")String name,@RequestParam("password")String password) {
+		UserExample example = new UserExample();
+	    UserExample.Criteria criteria = example.createCriteria();
+		
+	    example.setDistinct(false);
+	     
+	    criteria.andNameEqualTo(name);
+	    criteria.andPasswordEqualTo(password);
+	    
+	    
+	     
+	    List<User> userList=userMapper.selectByExample(example);
+	   
+	    if(userList.size()>1) return null;
+	    else return JSON.toJSONString(userList.get(0));
+	    
 	}
 	
-	@RequestMapping("/Register")
-	public String userRegister() {
-		return "hello world";
+	@RequestMapping(value="/register",method=RequestMethod.POST)
+	public String userRegister(@RequestBody User user) {
+		int result=userMapper.insertSelective(user);
+		System.out.println("用户插入:"+result);
+		
+		return JSON.toJSONString(result);
 	}
 }

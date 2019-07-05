@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
 <generatorConfiguration>
-  <context id="context1">    
+  <context id="context1">
     <jdbcConnection connectionURL="jdbc:mysql://localhost:3306/zdg1?useUnicode=true&amp;characterEncoding=UTF-8&amp;serverTimezone=UTC" driverClass="com.mysql.jdbc.Driver" password="123456" userId="root" />
     <javaModelGenerator targetPackage="com.zhang.zdg1.model" targetProject="zdg1" />
     <sqlMapGenerator targetPackage="com.zhang.zdg1.mapper" targetProject="zdg1" />
     <javaClientGenerator targetPackage="com.zhang.zdg1.dao" targetProject="zdg1" type="XMLMAPPER" />
-    <table schema="Order" tableName="order">
+    <table schema="Order" tableName="wire_order">
     </table>
     <table schema="User" tableName="user"></table>
   </context>
