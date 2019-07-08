@@ -1,1 +1,3 @@
-var apipath='http://localhost:8080/zdg'
+export default{
+	apipath:'http://localhost:8000/api'
+}

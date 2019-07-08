@@ -1,4 +1,6 @@
 <template>
+    <div>
+    <button class="btn btn-info" @click="logout">logout</button>
 <h1>未被接受的订单</h1>
 <table class="table">
 	<thead>
@@ -20,41 +22,59 @@
 		</tbody>
 	
 </table>
+</div>
 </template>
 <script type="text/javascript">
 	export default {
-        data:{
+        inject:['reload'],
+        data(){
+            return{
         	orderList:[]
-        }
+             }
+         },
         methods:{
         	showUser:function(id){
         		var _this=this;
         		this.$axios.get(this.$commondata.apipath+'/user/user',{
         			params: {
-     					 ID: id
+     					 id: id
   					}
         		})
         		.then(function(res){
         			console.info(res);
-        			_this.res.id=null;
         			alert("用户信息"+res);
         		});
         	},
         	accept:function(order){
         		var _this=this;
-        		order.id
-        	}
-        }
+        		order.orderStatus='accept';
+                order.dgId=this.$cookies.get("user_id");
+                order.dgPrice=prompt("请输入报价");
+
+                this.$axios.post(this.$commondata.apipath+'/order/update',order)
+                .then(function(res){
+                    console.info(res);
+                    this.reload();
+                })
+        	},
+            logout:function(){
+                this.$cookies.remove("user_id");
+                this.$router.push('/');
+            },
+            checkCookies:function(){
+                var _this=this;
+            this.$axios.get(this.$commondata.apipath+'/order/status/',{
+                params: {
+                         status: 'unaccept'
+                    }
+            }).then(function(res){
+                console.info(res);
+                _this.orderList=res.data;
+            })
+            }
+        },
         mounted(){
-        	var _this=this;
-        	this.$axios.get(this.$commondata.apipath+'/order/status/',{
-        		params: {
-     					 status: 'unaccept'
-  					}
-        	}).then(function(res){
-        		console.info(res);
-        		_this.orderList=res;
-        	})
+        	this.checkCookies();
         }
     };
 </script>

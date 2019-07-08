@@ -22,14 +22,14 @@ public class UserController {
 	UserMapper userMapper;
 	
 	@RequestMapping(value="/login",method=RequestMethod.POST)
-	public String userLogin(@RequestParam("name")String name,@RequestParam("password")String password) {
+	public String userLogin(@RequestBody User user) {
 		UserExample example = new UserExample();
 	    UserExample.Criteria criteria = example.createCriteria();
 		
 	    example.setDistinct(false);
 	     
-	    criteria.andNameEqualTo(name);
-	    criteria.andPasswordEqualTo(password);
+	    criteria.andNameEqualTo(user.getName());
+	    criteria.andPasswordEqualTo(user.getPassword());
 	    
 	    
 	     
@@ -38,6 +38,23 @@ public class UserController {
 	    if(userList.size()>1) return null;
 	    else return JSON.toJSONString(userList.get(0));
 	    
+	}
+	
+	@RequestMapping(value="/user",method=RequestMethod.GET)
+	public String getUser(@RequestParam("id")Integer id) {
+		UserExample example = new UserExample();
+	    UserExample.Criteria criteria = example.createCriteria();
+		
+	    example.setDistinct(false);
+	    
+	    criteria.andIdEqualTo(id);
+	    
+	    
+	     
+	    List<User> userList=userMapper.selectByExample(example);
+	    
+	    if(userList.size()>1) return null;
+	    else return JSON.toJSONString(userList.get(0));
 	}
 	
 	@RequestMapping(value="/register",method=RequestMethod.POST)

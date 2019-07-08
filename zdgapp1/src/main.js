@@ -8,12 +8,16 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import commondata from './assets/commondata'
 import VueCookies from 'vue-cookies'
 
-Vue.use(VueCookies)
-Vue.config.productionTip = false
+
+Vue.use(VueCookies);
+Vue.config.productionTip = false;
+Vue.prototype.$axios = axios;
+Vue.prototype.$commondata = commondata;
+Vue.prototype.$cookies = VueCookies;
 
 /* eslint-disable no-new */
 new Vue({
-  el: '#app',
+  el: '#App',
   router,
   components: { App },
   template: '<App/>'

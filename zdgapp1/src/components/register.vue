@@ -1,4 +1,5 @@
 <template>
+    <div>
 <h1>Register</h1>
 <form>
 	<div class="form-group">
@@ -20,22 +21,28 @@
 	</div>
 	<input type="button" value="Register" class="btn btn-primary" @click="save"></input>
 </form>
+</div>
 </template>
 <script type="text/javascript">
 	export default {
-        data:{
-        	account:{}
-        }
+        data(){
+            return {
+        	   accout:{}
+            }
+        },
         methods:{
         	save:function(){
         		var _this=this;
-        		this.$axios.post(this.$commondata.apipath+'/user/register',account)
+        		this.$axios.post(this.$commondata.apipath+'/user/register',_this.accout)
         		.then(function(res){
         			console.info(res);
         			alert("注册成功");
+        			_this.accout={};
+        			_this.$router.push('/');
         		});
-        		this.account={};
-        	}
+        		
+        	},
+
         }
     };
 </script>
