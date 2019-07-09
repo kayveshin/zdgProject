@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<generatorConfiguration>
+  <context id="context1">
+    <jdbcConnection connectionURL="jdbc:mysql://localhost:3306/zdg2?useUnicode=true&amp;characterEncoding=UTF-8&amp;serverTimezone=UTC" driverClass="com.mysql.jdbc.Driver" password="123456" userId="root" />
+    <javaModelGenerator targetPackage="com.zhang.zdg2.model" targetProject="zdg2" />
+    <sqlMapGenerator targetPackage="com.zhang.zdg2.mapper" targetProject="zdg2" />
+    <javaClientGenerator targetPackage="com.zhang.zdg2.dao" targetProject="zdg2" type="XMLMAPPER" />
+    <table schema="DgOrder" tableName="dgorder"></table>
+    <table schema="Account" tableName="account"></table>
+    <table schema="dgInType" tableName="dgitype"></table>
+    <table schema="Apply" tableName="apply"></table>
+     <table schema="OrderType" tableName="orderType"></table>
+     <table schema="Remark" tableName="remark"></table>
+  </context>
+</generatorConfiguration>
