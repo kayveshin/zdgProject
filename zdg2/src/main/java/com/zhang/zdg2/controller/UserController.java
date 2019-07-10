@@ -1,18 +1,42 @@
 package com.zhang.zdg2.controller;
 
+import java.util.Calendar;
+import java.util.Date;
+
+import javax.annotation.Resource;
+
+import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.alibaba.fastjson.JSON;
 import com.zhang.zdg2.model.Account;
+import com.zhang.zdg2.service.UserService;
 
 @RestController
 @RequestMapping("user")
 public class UserController {
 	
-	@RequestMapping("updateself")
-	public String updateSelf(@RequestBody Account account) {
-		return "hello";
+	@Resource
+	UserService userService;
+	
+	@RequestMapping("real")
+	public String updateRealMessage(@RequestBody Account account) {
+		return JSON.toJSONString(userService.updateUser(account));
 	}
 	
+	@RequestMapping("detail")
+	public String updateDetail(@RequestBody Account account) {
+		return JSON.toJSONString(userService.updateUser(account));
+	}
+	
+	@RequestMapping("available")
+	public String extendAvailable(@CookieValue("user_id")String id) {
+		Account user=userService.getByid(id);
+		Date date=user.getValidityDate();
+		date.setTime(date.getTime()+30*24*60*60*1000);
+		user.setValidityDate(date);
+		return JSON.toJSONString(userService.updateUser(user));
+	}
 }

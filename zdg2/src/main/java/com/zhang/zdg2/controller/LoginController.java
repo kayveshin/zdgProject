@@ -1,6 +1,7 @@
 package com.zhang.zdg2.controller;
 
 import java.util.List;
+import java.util.UUID;
 
 import javax.annotation.Resource;
 import javax.servlet.http.Cookie;
@@ -47,6 +48,7 @@ public class LoginController {
 	
 	@RequestMapping("/register")
 	public String register(@RequestBody Account account) {
+		account.setId(UUID.randomUUID().toString());
 		int result=userMapper.insertSelective(account);
 		System.out.println("用户插入:"+result);
 		

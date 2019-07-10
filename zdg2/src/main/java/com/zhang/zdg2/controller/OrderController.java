@@ -16,7 +16,7 @@ import com.zhang.zdg2.service.OrderService;
 
 @RestController
 @RequestMapping("order")
-public class orderController {
+public class OrderController {
 	
 	@Resource
 	OrderService orderSerivce;
@@ -55,4 +55,19 @@ public class orderController {
 	public String getByDemanderId(@CookieValue("user_id")String id) {
 		return JSON.toJSONString(orderSerivce.getbyDemanderid(id));
 	}
+	
+	@RequestMapping("/cancel")
+	public String cancelOrder(@RequestBody Dgorder dgorder) {
+		dgorder.setOrderStatus("cancel");
+		return JSON.toJSONString(orderSerivce.updateOrder(dgorder));
+	}
+	
+	@RequestMapping("/over")
+	public String overOrder(@RequestBody Dgorder dgorder) {
+		dgorder.setOrderStatus("over");
+		return JSON.toJSONString(orderSerivce.updateOrder(dgorder));
+	}
+	
+	
+	
 }

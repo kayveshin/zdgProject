@@ -3,6 +3,13 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
+import axios from 'axios'
+import 'bootstrap/dist/css/bootstrap.min.css'
+import commondata from './assets/commondata'
+
+Vue.prototype.$axios = axios;
+Vue.prototype.$commondata = commondata;
+
 
 Vue.config.productionTip = false
 
