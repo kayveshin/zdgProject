@@ -47,18 +47,44 @@ public class LoginController {
 	
 	@RequestMapping("/register")
 	public String register(@RequestBody Account account) {
+		int result=userMapper.insertSelective(account);
+		System.out.println("用户插入:"+result);
 		
-		return "hello";
+		return JSON.toJSONString(result);
 	}
 	
 	@RequestMapping("/logout")
 	public String logout(HttpServletRequest request,HttpServletResponse response) {
-		
-		return "hello";
+		response.addCookie(new Cookie("user_id", null));
+		return "ok";
 	}
 	
 	@RequestMapping("/session")
 	public String register(HttpServletRequest request,HttpServletResponse response) {
-		return "hello";
+		String id=null;
+		for (Cookie cookie : request.getCookies()) {
+			if(cookie.getName()=="user_id") {
+				id=cookie.getValue();
+			}
+		}
+		if(id!=null) {
+			AccountExample example=new AccountExample();
+			AccountExample.Criteria criteria=example.createCriteria();
+			
+			example.setDistinct(false);
+		     
+			criteria.andIdEqualTo(id);
+		    
+		    
+		     
+		    List<Account> userList=userMapper.selectByExample(example);
+		   
+		    if(userList.size()>1) return null;
+		    else {
+		    	return JSON.toJSONString(userList.get(0));
+		    }
+		}else {
+			return null;
+		}
 	}
 }
