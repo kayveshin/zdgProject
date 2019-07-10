@@ -24,13 +24,15 @@
         	   order:{
                   type:null,
                   need:null,
+                  userId:null
                 }
             }
         },
         methods:{
         	save:function(){
         		var _this=this;
-        		this.$axios.post(this.$commondata.apipath+'/order/create',this.order)
+                this.order.userId=this.$cookies.get('user_id');
+        		this.$axios.post(this.$commonapi.apipath+this.$commonapi.openOrderPath,this.order)
         		.then(function(res){
         			console.info(res);
         			alert("增加成功");
@@ -38,7 +40,8 @@
                 this.order={};
         	},
             logout:function(){
-                this.$axios.get(this.)
+                this.$cookies.remove("user_id");
+                this.$router.push('/');
             }
         }
     };

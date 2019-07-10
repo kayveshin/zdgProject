@@ -6,6 +6,7 @@ import javax.annotation.Resource;
 
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.alibaba.fastjson.JSON;
@@ -19,12 +20,12 @@ public class OrderTypeController {
 	@Resource
 	OrderTypeService orderTypeService;
 	
-	@RequestMapping("/list")
+	@RequestMapping(value="/list",method = RequestMethod.GET)
 	public String getList() {
 		return JSON.toJSONString(orderTypeService.getList());
 	}
 	
-	@RequestMapping("/dgandtype")
+	@RequestMapping(value="/dgandtype",method=RequestMethod.POST)
 	public String addDgAndType(@RequestBody List<Dgitype> list) {
 		return JSON.toJSONString(orderTypeService.addlist(list));
 	}

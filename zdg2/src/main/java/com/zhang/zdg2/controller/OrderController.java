@@ -7,6 +7,7 @@ import javax.annotation.Resource;
 import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -21,21 +22,21 @@ public class OrderController {
 	@Resource
 	OrderService orderSerivce;
 	
-	@RequestMapping("/create")
+	@RequestMapping(value="/create",method = RequestMethod.POST)
 	public String createOrder(@RequestBody Dgorder dgorder) {
 		dgorder.setOrderStatus("unaccept");
 		dgorder.setOpenTime(new Date());
 		return JSON.toJSONString(orderSerivce.createOrder(dgorder));
 	}
 	
-	@RequestMapping("/updateWithDg")
+	@RequestMapping(value="/updateWithDg",method = RequestMethod.POST)
 	public String updateOrder(@RequestBody Dgorder dgorder) {
 		dgorder.setOrderStatus("accept");
 		
 		return JSON.toJSONString(orderSerivce.updateOrder(dgorder));
 	}
 	
-	@RequestMapping("/state")
+	@RequestMapping(value="/state",method = RequestMethod.GET)
 	public String getByState(@RequestParam String state) {
 		
 		
@@ -43,7 +44,7 @@ public class OrderController {
 		return JSON.toJSONString(orderSerivce.getbyState(state));
 	}
 	
-	@RequestMapping("/dg")
+	@RequestMapping(value="/dg",method=RequestMethod.GET)
 	public String getByDgid(@CookieValue("user_id")String id) {
 		
 		
@@ -51,18 +52,18 @@ public class OrderController {
 		return JSON.toJSONString(orderSerivce.getbyDgid(id));
 	}
 	
-	@RequestMapping("/demand")
+	@RequestMapping(value="/demand",method=RequestMethod.GET)
 	public String getByDemanderId(@CookieValue("user_id")String id) {
 		return JSON.toJSONString(orderSerivce.getbyDemanderid(id));
 	}
 	
-	@RequestMapping("/cancel")
+	@RequestMapping(value="/cancel",method=RequestMethod.POST)
 	public String cancelOrder(@RequestBody Dgorder dgorder) {
 		dgorder.setOrderStatus("cancel");
 		return JSON.toJSONString(orderSerivce.updateOrder(dgorder));
 	}
 	
-	@RequestMapping("/over")
+	@RequestMapping(value="/over",method=RequestMethod.POST)
 	public String overOrder(@RequestBody Dgorder dgorder) {
 		dgorder.setOrderStatus("over");
 		return JSON.toJSONString(orderSerivce.updateOrder(dgorder));

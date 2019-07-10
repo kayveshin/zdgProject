@@ -6,9 +6,11 @@ import router from './router'
 import axios from 'axios'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import commondata from './assets/commondata'
+import commondata from './assets/commonfun'
 
 Vue.prototype.$axios = axios;
 Vue.prototype.$commondata = commondata;
+Vue.prototype.$commonfun=commonfun;
 
 
 Vue.config.productionTip = false

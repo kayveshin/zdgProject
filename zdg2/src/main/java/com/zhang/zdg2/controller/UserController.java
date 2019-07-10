@@ -1,6 +1,5 @@
 package com.zhang.zdg2.controller;
 
-import java.util.Calendar;
 import java.util.Date;
 
 import javax.annotation.Resource;
@@ -8,6 +7,7 @@ import javax.annotation.Resource;
 import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.alibaba.fastjson.JSON;
@@ -21,17 +21,17 @@ public class UserController {
 	@Resource
 	UserService userService;
 	
-	@RequestMapping("real")
+	@RequestMapping(value="real",method = RequestMethod.POST)
 	public String updateRealMessage(@RequestBody Account account) {
 		return JSON.toJSONString(userService.updateUser(account));
 	}
 	
-	@RequestMapping("detail")
+	@RequestMapping(value="detail",method = RequestMethod.POST)
 	public String updateDetail(@RequestBody Account account) {
 		return JSON.toJSONString(userService.updateUser(account));
 	}
 	
-	@RequestMapping("available")
+	@RequestMapping(value="available",method=RequestMethod.GET)
 	public String extendAvailable(@CookieValue("user_id")String id) {
 		Account user=userService.getByid(id);
 		Date date=user.getValidityDate();

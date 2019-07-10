@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.alibaba.fastjson.JSON;
@@ -24,7 +25,7 @@ public class LoginController {
 	@Resource
 	AccountMapper userMapper;
 	
-	@RequestMapping("/login")
+	@RequestMapping(value="/login",method = RequestMethod.POST)
 	public String loginByNameAndPass(@RequestBody Account account,HttpServletResponse response) {
 		AccountExample example=new AccountExample();
 		AccountExample.Criteria criteria=example.createCriteria();
@@ -46,7 +47,7 @@ public class LoginController {
 		
 	}
 	
-	@RequestMapping("/register")
+	@RequestMapping(value="/register",method = RequestMethod.POST)
 	public String register(@RequestBody Account account) {
 		account.setId(UUID.randomUUID().toString());
 		int result=userMapper.insertSelective(account);
@@ -55,13 +56,13 @@ public class LoginController {
 		return JSON.toJSONString(result);
 	}
 	
-	@RequestMapping("/logout")
+	@RequestMapping(value="/logout",method = RequestMethod.GET)
 	public String logout(HttpServletRequest request,HttpServletResponse response) {
 		response.addCookie(new Cookie("user_id", null));
 		return "ok";
 	}
 	
-	@RequestMapping("/session")
+	@RequestMapping(value="/session",method=RequestMethod.GET)
 	public String register(HttpServletRequest request,HttpServletResponse response) {
 		String id=null;
 		for (Cookie cookie : request.getCookies()) {
