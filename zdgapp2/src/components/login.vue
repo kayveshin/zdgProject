@@ -27,7 +27,6 @@
                 }
             }
         },
-        inject:['reload'],
         methods:{
         	save:function(){
         		var _this=this;
@@ -42,18 +41,18 @@
                 this.$router.push('/register');
             },
             refresh(){
+                 var _this=this;
                 _this.accout={};
-                var _this=this;
+               
 
-            console.info(_this.$commondata.apipath);
             if(this.$cookies.isKey("user_id")){
                 var _id=this.$cookies.get("user_id");
                 //这里改成只看role
                 this.$axios.get(this.$commonapi.apipath+this.$commonapi.sessionLoginPath).then(function(res){
                     if(res.data.role=='user'){
-                        _this.$router.push('/openOrder');
+                        _this.$router.push('/orderCtrl');
                     }else if(res.data.role=='wireman'){
-                        _this.$router.push('/unaccept');
+                        _this.$router.push('/unacceptedOrder');
                     }
                 });
             }
