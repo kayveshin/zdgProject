@@ -7,6 +7,14 @@ export default{
 	enterRealPath:'/user/real',
 	enterDetailPath:'/user/detail',
 	enterAvailPath:'/user/available',
+	DgInfoPath:'',
 	createApplyPath:'/apply/create',
-	openOrderPath:'/order/create'
+	ApplyByOrderPath:'/apply/',
+	AcceptApplyPath:'/apply/'
+	openOrderPath:'/order/create',
+	orderCancelPath：'/order/',
+	overOrderPath:'',
+	DemandOrderListPath:'',
+	remarkDgPath:'',
+	getAllTypePath:''
 }

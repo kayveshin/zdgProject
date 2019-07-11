@@ -9,11 +9,11 @@
 	</div>
 	<div class="form-group">
 		<label>type</label>
-        <div v-for="type in typeList"> <input type="radio" class="hy-radio"   v-model="order.typeid" value="type.id"> {{type.name}}</div>
+        <div v-for="type in typeList"> <input type="radio" class="hy-radio"   v-model="order.typeid" value="{{type.id}}"> {{type.name}}</div>
 	</div>
     <div class="form-group">
         <label>tel</label>
-        <input class="form-control" v-model="order.need"></input>
+        <input class="form-control" v-model="order.tel"></input>
     </div>
     <div class="form-group">
         <label>Streetaddress</label>
@@ -33,28 +33,34 @@
 	export default {
         data(){
             return {
-        	   order:{
-                  type:null,
-                  need:null,
-                  userId:null
-                }
+        	   order:{},
+               typeList:[]
             }
         },
         methods:{
+            refresh(){
+                this.order:{},
+                this.$axios.get(this.$commonapi.apipath+this.$commonapi.getAllTypePath)
+                .then(function(res){
+                    console.info(res);
+                    this.typeList=res.data;
+                })
+            }
         	save:function(){
         		var _this=this;
-                this.order.userId=this.$cookies.get('user_id');
         		this.$axios.post(this.$commonapi.apipath+this.$commonapi.openOrderPath,this.order)
         		.then(function(res){
         			console.info(res);
         			alert("增加成功");
         		});
-                this.order={};
+                this.$router.push('/orderCtrl');
         	},
             logout:function(){
-                this.$cookies.remove("user_id");
-                this.$router.push('/');
+                this.$commonfun.logout();
             }
+        },
+        mounted(){
+            this.refresh();
         }
     };
 </script>
