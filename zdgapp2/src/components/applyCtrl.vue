@@ -1,5 +1,6 @@
 <template>
 	<div>
+		<td><button class="btn btn-info" @click="back()">back</button></td>
 		<h1>查看申请</h1>
 <table class="table">
 	<thead>
@@ -65,6 +66,9 @@
 					console.info(res);
 					_this.$router.push('/orderCtrl');
 				})
+			},
+			back:function(){
+				this.$router.go(-1);
 			}
 		},
 		mounted(){

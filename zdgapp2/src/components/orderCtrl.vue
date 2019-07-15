@@ -1,6 +1,9 @@
 <template>
 	<div>
+		<button class="btn btn-info" @click="logout">logout</button>
+
 		<h1>查看订单</h1>
+		<button class="btn btn-info" @click="add">AddOrder</button>
 <table class="table">
 	<thead>
 		<tr>
@@ -49,7 +52,7 @@
 				})
 			},
 			applyView:function(id){
-				this.$router.push('/applyCtrl?id='+id);
+				this.$router.push('/applyCtrl/'+id);
 			},
 			over:function(id){
 				var _this=this;
@@ -58,7 +61,7 @@
 					console.info(res);
 					_this.refresh();
 				})
-			}
+			},
 			remark:function(id){
 				var remarkTable={
 					comment:null,
@@ -77,8 +80,13 @@
 				}else{
 					alart("不能为空");
 				}
-			}
-
+			},
+			logout:function(){
+                this.$commonfun.logout();
+            },
+            add:function(){
+            	this.$router.push('/openOrder')
+            }
 		},
 		mounted(){
 			this.refresh();

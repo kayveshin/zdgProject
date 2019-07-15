@@ -9,7 +9,7 @@
 	</div>
 	<div class="form-group">
 		<label>type</label>
-        <div v-for="type in typeList"> <input type="radio" class="hy-radio"   v-model="order.typeid" value="{{type.id}}"> {{type.name}}</div>
+        <div v-for="type in typeList"> <input type="radio" class="hy-radio"   v-model="order.typeid" value="type.id"> {{type.name}}</div>
 	</div>
     <div class="form-group">
         <label>tel</label>
@@ -39,13 +39,13 @@
         },
         methods:{
             refresh(){
-                this.order:{},
+                this.order={};
                 this.$axios.get(this.$commonapi.apipath+this.$commonapi.getAllTypePath)
                 .then(function(res){
                     console.info(res);
                     this.typeList=res.data;
                 })
-            }
+            },
         	save:function(){
         		var _this=this;
         		this.$axios.post(this.$commonapi.apipath+this.$commonapi.openOrderPath,this.order)

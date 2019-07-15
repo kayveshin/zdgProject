@@ -27,6 +27,8 @@ public class UserService {
 		return accountMapper.updateByExampleSelective(record, example);
 	}
 	
+	
+	
 	public Account getByid(String id) {
 		AccountExample example=new AccountExample();
 		

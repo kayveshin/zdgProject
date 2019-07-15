@@ -1,8 +1,10 @@
 export default{
-	logout(){
-    this.$axios.get(this.$commonapi.apiPath+this.$commonapi.logoutPath)
-    .then(res){
-      console.info(res);
-      this.$router.push('/');
-    }
+	logout:function(){
+		var _this=this;
+		this.$axios.get(this.$commonapi.apiPath+this.$commonapi.logoutPath).then(function(res){
+			console.info(res);
+			_this.$router.push('/');
+		})
+	}
 }
+	

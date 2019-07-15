@@ -7,14 +7,17 @@ export default{
 	enterRealPath:'/user/real',
 	enterDetailPath:'/user/detail',
 	enterAvailPath:'/user/available',
-	DgInfoPath:'',
+	getSelfPath:'/user/self',
+	DgInfoPath:'/user/dgInfo',
 	createApplyPath:'/apply/create',
-	ApplyByOrderPath:'/apply/',
-	AcceptApplyPath:'/apply/'
+	ApplyByOrderPath:'/apply/getList',
+	AcceptApplyPath:'/apply/accept',
 	openOrderPath:'/order/create',
-	orderCancelPath：'/order/',
-	overOrderPath:'',
-	DemandOrderListPath:'',
-	remarkDgPath:'',
-	getAllTypePath:''
+	orderCancelPath:'/order/cancel',
+	getUnacceptPath:'/order/unaccept',
+	getAccepOrderPath:'/order/dg',
+	overOrderPath:'/order/over',
+	DemandOrderListPath:'/order/demand',
+	remarkDgPath:'/remark/create',
+	getAllTypePath:'/orderType/list'
 }

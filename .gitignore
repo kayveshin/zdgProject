@@ -1,3 +1,4 @@
 /.metadata/
 **/node_modules/
 /.recommenders/
+/demo/

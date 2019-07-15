@@ -33,7 +33,7 @@
         methods:{
         	save:function(){
         		var _this=this;
-        		this.$axios.post(this.$commonapi.apipath+this.$commonapi.,_this.accout)
+        		this.$axios.post(this.$commonapi.apipath+this.$commonapi._this.accout)
         		.then(function(res){
         			console.info(res);
         			alert("注册成功");

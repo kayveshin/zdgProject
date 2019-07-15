@@ -5,11 +5,11 @@ import App from './App'
 import router from './router'
 import axios from 'axios'
 import 'bootstrap/dist/css/bootstrap.min.css'
-import commondata from './assets/commondata'
+import commonapi from './assets/commonapi'
 import commonfun from './assets/commonfun'
 
 Vue.prototype.$axios = axios;
-Vue.prototype.$commondata = commondata;
+Vue.prototype.$commonapi = commonapi;
 Vue.prototype.$commonfun=commonfun;
 
 
