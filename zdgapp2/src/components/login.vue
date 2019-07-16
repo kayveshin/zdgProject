@@ -4,7 +4,7 @@
 <form>
 	<div class="form-group">
 		<label>name</label>
-		<input class="form-control" v-model="accout.name"></input>
+		<input class="form-control" v-model="accout.username"></input>
 	</div>
 	<div class="form-group">
 		<label>password</label>
@@ -21,15 +21,13 @@
         data(){
             return {
                 accout:{
-                    name:null,
-                    password:null
                 }
             }
         },
         methods:{
         	save:function(){
         		var _this=this;
-        		this.$axios.post(this.$commonapi.apipath+this.$commonapi.loginPath,{name:_this.accout.name,password:_this.accout.password})
+        		this.$axios.post(this.$commonapi.apiPath+this.$commonapi.loginPath,_this.accout)
         		.then(function(res){
                     //这里改成返回ok码
                     this.refresh();
@@ -42,19 +40,17 @@
             refresh(){
                  var _this=this;
                 _this.accout={};
-               
-
-            if(this.$cookies.isKey("user_id")){
-                var _id=this.$cookies.get("user_id");
-                //这里改成只看role
-                this.$axios.get(this.$commonapi.apipath+this.$commonapi.sessionLoginPath).then(function(res){
+                
+                console.info(this.$commonapi.apiPath+this.$commonapi.sessionLoginPath);
+                
+                this.$axios.get(this.$commonapi.apiPath+this.$commonapi.sessionLoginPath).then(function(res){
                     if(res.data.role=='user'){
                         _this.$router.push('/orderCtrl');
                     }else if(res.data.role=='wireman'){
                         _this.$router.push('/unacceptedOrder');
                     }
                 });
-            }
+            
 
             }
         },

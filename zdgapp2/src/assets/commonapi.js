@@ -1,5 +1,5 @@
 export default{
-	apiPath:'http://localhost:8080/zdg2',
+	apiPath:'http://localhost:8000/api',
 	loginPath:'/login/login',
 	registerPath:'/login/register',
 	logoutPath:'/login/logout',

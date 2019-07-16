@@ -49,7 +49,9 @@ public class LoginController {
 	
 	@RequestMapping(value="/register",method = RequestMethod.POST)
 	public String register(@RequestBody Account account) {
-		account.setId(UUID.randomUUID().toString());
+		String id=UUID.randomUUID().toString();
+		id=id.replace("-", "");
+		account.setId(id);
 		int result=userMapper.insertSelective(account);
 		System.out.println("用户插入:"+result);
 		
@@ -65,11 +67,15 @@ public class LoginController {
 	@RequestMapping(value="/session",method=RequestMethod.GET)
 	public String register(HttpServletRequest request,HttpServletResponse response) {
 		String id=null;
-		for (Cookie cookie : request.getCookies()) {
-			if(cookie.getName()=="user_id") {
-				id=cookie.getValue();
+		Cookie[] cookies=request.getCookies();
+		if(cookies!=null) {
+			for (Cookie cookie : cookies) {
+				if(cookie.getName()=="user_id") {
+					id=cookie.getValue();
+				}
 			}
 		}
+		
 		if(id!=null) {
 			AccountExample example=new AccountExample();
 			AccountExample.Criteria criteria=example.createCriteria();

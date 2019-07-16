@@ -1,0 +1,5 @@
+{"properties": [{
+  "name": "com.zhang.session_key",
+  "type": "java.lang.String",
+  "description": "A description for 'com.zhang.session_key'"
+}]}

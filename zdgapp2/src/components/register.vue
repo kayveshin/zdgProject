@@ -4,7 +4,7 @@
 <form>
 	<div class="form-group">
 		<label>name</label>
-		<input class="form-control" v-model="accout.name"></input>
+		<input class="form-control" v-model="accout.username"></input>
 	</div>
 	<div class="form-group">
 		<label>password</label>
@@ -33,7 +33,7 @@
         methods:{
         	save:function(){
         		var _this=this;
-        		this.$axios.post(this.$commonapi.apipath+this.$commonapi._this.accout)
+        		this.$axios.post(this.$commonapi.apiPath+this.$commonapi.registerPath,_this.accout)
         		.then(function(res){
         			console.info(res);
         			alert("注册成功");
