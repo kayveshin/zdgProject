@@ -11,8 +11,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.alibaba.fastjson.JSON;
+import com.zhang.zdg2.config.DataConfig;
 import com.zhang.zdg2.model.Dgorder;
 import com.zhang.zdg2.service.OrderService;
+import com.zhang.zdg2.util.RedisUtil;
 
 @RestController
 @RequestMapping("order")
@@ -20,6 +22,9 @@ public class OrderController {
 	
 	@Resource
 	OrderService orderSerivce;
+	
+	@Resource
+	RedisUtil redisUtil;
 	
 	@RequestMapping(value="/create",method = RequestMethod.POST)
 	public String createOrder(@RequestBody Dgorder dgorder) {
@@ -39,16 +44,16 @@ public class OrderController {
 	}
 	
 	@RequestMapping(value="/dg",method=RequestMethod.GET)
-	public String getByDgid(@CookieValue("user_id")String id) {
+	public String getByDgid(@CookieValue(DataConfig.SESSIONKEY)String key) {
 		
 		
 		
-		return JSON.toJSONString(orderSerivce.getbyDgid(id));
+		return JSON.toJSONString(orderSerivce.getbyDgid((String)redisUtil.Lget(key, 0)));
 	}
 	
 	@RequestMapping(value="/demand",method=RequestMethod.GET)
-	public String getByDemanderId(@CookieValue("user_id")String id) {
-		return JSON.toJSONString(orderSerivce.getbyDemanderid(id));
+	public String getByDemanderId(@CookieValue(DataConfig.SESSIONKEY)String key) {
+		return JSON.toJSONString(orderSerivce.getbyDemanderid((String)redisUtil.Lget(key, 0)));
 	}
 	
 	@RequestMapping(value="/cancel",method=RequestMethod.POST)

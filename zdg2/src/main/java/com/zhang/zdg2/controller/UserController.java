@@ -12,8 +12,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.alibaba.fastjson.JSON;
+import com.zhang.zdg2.config.DataConfig;
 import com.zhang.zdg2.model.Account;
 import com.zhang.zdg2.service.UserService;
+import com.zhang.zdg2.util.RedisUtil;
 
 @RestController
 @RequestMapping("user")
@@ -21,6 +23,9 @@ public class UserController {
 	
 	@Resource
 	UserService userService;
+	
+	@Resource
+	RedisUtil redisUtil;
 	
 	@RequestMapping(value="real",method = RequestMethod.POST)
 	public String updateRealMessage(@RequestBody Account account) {
@@ -33,8 +38,8 @@ public class UserController {
 	}
 	
 	@RequestMapping(value="available",method=RequestMethod.GET)
-	public String extendAvailable(@CookieValue("user_id")String id) {
-		Account user=userService.getByid(id);
+	public String extendAvailable(@CookieValue(DataConfig.SESSIONKEY)String key) {
+		Account user=userService.getByid((String)redisUtil.Lget(key, 0));
 		Date date=user.getValidityDate();
 		date.setTime(date.getTime()+30*24*60*60*1000);
 		user.setValidityDate(date);
@@ -42,10 +47,10 @@ public class UserController {
 	}
 	
 	@RequestMapping(value="self",method=RequestMethod.GET)
-	public String getSelf(@CookieValue("user_id")String id) {
+	public String getSelf(@CookieValue(DataConfig.SESSIONKEY)String key) {
 		
 	    
-	    	return JSON.toJSONString(userService.getByid(id));
+	    	return JSON.toJSONString(userService.getByid((String)redisUtil.Lget(key, 0)));
 	    
 	}
 	

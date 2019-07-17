@@ -39,16 +39,17 @@
         },
         methods:{
             refresh(){
+                var _this=this;
                 this.order={};
-                this.$axios.get(this.$commonapi.apipath+this.$commonapi.getAllTypePath)
+                this.$axios.get(this.$commonapi.apiPath+this.$commonapi.getAllTypePath)
                 .then(function(res){
                     console.info(res);
-                    this.typeList=res.data;
+                    _this.typeList=res.data;
                 })
             },
         	save:function(){
         		var _this=this;
-        		this.$axios.post(this.$commonapi.apipath+this.$commonapi.openOrderPath,this.order)
+        		this.$axios.post(this.$commonapi.apiPath+this.$commonapi.openOrderPath,this.order)
         		.then(function(res){
         			console.info(res);
         			alert("增加成功");

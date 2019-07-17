@@ -30,14 +30,14 @@
         		this.$axios.post(this.$commonapi.apiPath+this.$commonapi.loginPath,_this.accout)
         		.then(function(res){
                     //这里改成返回ok码
-                    this.refresh();
+                    _this.refresh();
         		});
         		
         	},
             moveRegister:function(){
                 this.$router.push('/register');
             },
-            refresh(){
+            refresh:function(){
                  var _this=this;
                 _this.accout={};
                 

@@ -12,10 +12,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.alibaba.fastjson.JSON;
+import com.zhang.zdg2.config.DataConfig;
 import com.zhang.zdg2.model.Apply;
 import com.zhang.zdg2.model.Dgorder;
 import com.zhang.zdg2.service.ApplyService;
 import com.zhang.zdg2.service.OrderService;
+import com.zhang.zdg2.util.RedisUtil;
 
 @RestController
 @RequestMapping("/apply")
@@ -27,9 +29,12 @@ public class ApplyController {
 	@Resource
 	OrderService orderService;
 	
+	@Resource 
+	RedisUtil redisUtil;
+	
 	@RequestMapping(value="create",method = RequestMethod.POST)
-	public String createApply(@RequestBody Apply apply,@CookieValue("user_id") String id) {
-		return JSON.toJSONString(applyService.createApply(apply, id));
+	public String createApply(@RequestBody Apply apply,@CookieValue(DataConfig.SESSIONKEY) String key) {
+		return JSON.toJSONString(applyService.createApply(apply, (String)redisUtil.Lget(key, 0)));
 	}
 	
 	@RequestMapping(value="getList",method=RequestMethod.GET)
@@ -38,7 +43,7 @@ public class ApplyController {
 	}
 	
 	@RequestMapping(value="accept",method = RequestMethod.POST)
-	public String acceptApply(@RequestBody Apply apply,@CookieValue("user_id") String id) {
+	public String acceptApply(@RequestBody Apply apply) {
 		
 		//将该订单的其他申请驳回
 		List<Apply> list=applyService.getApplyByOrder(apply.getOrderId());
