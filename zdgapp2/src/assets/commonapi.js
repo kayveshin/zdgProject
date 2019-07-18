@@ -19,5 +19,6 @@ export default{
 	overOrderPath:'/order/over',
 	DemandOrderListPath:'/order/demand',
 	remarkDgPath:'/remark/create',
-	getAllTypePath:'/orderType/list'
+	getAllTypePath:'/orderType/list',
+	publicKeyPath:'/login/publicKey'
 }

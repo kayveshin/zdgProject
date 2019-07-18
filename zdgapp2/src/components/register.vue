@@ -33,13 +33,17 @@
         methods:{
         	save:function(){
         		var _this=this;
-        		this.$axios.post(this.$commonapi.apiPath+this.$commonapi.registerPath,_this.accout)
-        		.then(function(res){
-        			console.info(res);
-        			alert("注册成功");
-        			_this.accout={};
-        			_this.$router.push('/');
-        		});
+                this.$axios.get(this.$commonapi.apiPath+this.$commonapi.publicKeyPath)
+                .then(function(res){
+                    _this.$axios.post(_this.$commonapi.apiPath+_this.$commonapi.registerPath,_this.accout)
+                .then(function(res){
+                    console.info(res);
+                    alert("注册成功");
+                    _this.accout={};
+                    _this.$router.push('/');
+                });
+                })
+        		
         		
         	},
 

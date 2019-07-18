@@ -8,7 +8,7 @@
 	</div>
 	<div class="form-group">
 		<label>password</label>
-		<input class="form-control" v-model="accout.password"></input>
+		<input class="form-control" type="password" v-model="accout.password"></input>
 	</div>
 	<input type="button" value="Login" class="btn btn-primary" @click="save"></input>
 </form>
@@ -27,11 +27,17 @@
         methods:{
         	save:function(){
         		var _this=this;
-        		this.$axios.post(this.$commonapi.apiPath+this.$commonapi.loginPath,_this.accout)
-        		.then(function(res){
-                    //这里改成返回ok码
-                    _this.refresh();
-        		});
+                this.$axios.get(this.$commonapi.apiPath+this.$commonapi.publicKeyPath)
+                .then(function(res){
+                    var publicKey=res.data;
+                    _this.accout.password=_this.$enCode(_this.accout.password)
+                    _this.$axios.post(_this.$commonapi.apiPath+_this.$commonapi.loginPath,_this.accout)
+                     .then(function(res){
+                        //这里改成返回ok码
+                        _this.refresh();
+                     });
+                })
+                
         		
         	},
             moveRegister:function(){

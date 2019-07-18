@@ -21,6 +21,7 @@ import com.zhang.zdg2.config.DataConfig;
 import com.zhang.zdg2.dao.AccountMapper;
 import com.zhang.zdg2.model.Account;
 import com.zhang.zdg2.model.AccountExample;
+import com.zhang.zdg2.util.RSAUtil;
 import com.zhang.zdg2.util.RedisUtil;
 
 @RestController
@@ -32,6 +33,11 @@ public class LoginController {
 	
 	@Resource 
 	RedisUtil redisUtil;
+	
+	@RequestMapping(value = "/publicKey",method = RequestMethod.GET)
+	public String getPubliKey() {
+		return RSAUtil.generateBase64PublicKey();
+	}
 	
 	@RequestMapping(value="/login",method = RequestMethod.POST)
 	public String loginByNameAndPass(@RequestBody Account account,HttpServletResponse response,HttpServletRequest request) {
@@ -78,6 +84,8 @@ public class LoginController {
 		String id=UUID.randomUUID().toString();
 		id=id.replace("-", "");
 		account.setId(id);
+		//password不做解密直接传入
+		account.setPassword(account.getPassword());
 		int result=userMapper.insertSelective(account);
 		System.out.println("用户插入:"+result);
 		return JSON.toJSONString(result);

@@ -21,7 +21,7 @@ public class LoginFilter implements Filter{
 	@Resource
 	RedisUtil redisUtil;
 	
-	String[] includeUrls = new String[]{"/login/login","/login/register","/login/session"};	
+	String[] includeUrls = new String[]{"/login/login","/login/register","/login/session","/login/publicKey"};	
 	String NotLoginError="NotLogin";
 	String ExpireError="LoginExpire";
 	String AgentError="NotSameAgent";
