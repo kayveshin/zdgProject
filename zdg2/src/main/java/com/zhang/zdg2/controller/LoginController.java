@@ -74,7 +74,7 @@ public class LoginController {
 	    	Cookie cookie=new Cookie(DataConfig.SESSIONKEY, sessionKey);
 	    	cookie.setPath("/");
 	    	response.addCookie(cookie);
-	    	return JSON.toJSONString(user);
+	    	return JSON.toJSONString(user.getRole());
 	    }
 		
 	}
@@ -125,7 +125,7 @@ public class LoginController {
 		   
 		    if(userList.size()>1) return null;
 		    else {
-		    	return JSON.toJSONString(userList.get(0));
+		    	return JSON.toJSONString(userList.get(0).getRole());
 		    }
 		}else {
 			return null;

@@ -56,6 +56,10 @@ public class UserController {
 	
 	@RequestMapping(value="dgInfo",method=RequestMethod.GET)
 	public String getDgById(@RequestParam("id")String id) {
-		return JSON.toJSONString(userService.getByid(id));
+		Account account=userService.getByid(id);
+		//不返回密码和身份证号
+		account.setPassword(null);
+		account.setCreditId(null);
+		return JSON.toJSONString(account);
 	}
 }

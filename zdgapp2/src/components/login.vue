@@ -50,9 +50,9 @@
                 console.info(this.$commonapi.apiPath+this.$commonapi.sessionLoginPath);
                 
                 this.$axios.get(this.$commonapi.apiPath+this.$commonapi.sessionLoginPath).then(function(res){
-                    if(res.data.role=='user'){
+                    if(res.data=='user'){
                         _this.$router.push('/orderCtrl');
-                    }else if(res.data.role=='wireman'){
+                    }else if(res.data=='wireman'){
                         _this.$router.push('/unacceptedOrder');
                     }
                 });
